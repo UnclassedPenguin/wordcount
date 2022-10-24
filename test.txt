@@ -1,5 +1,0 @@
-This is a test text with some other words and some more words and a word or two that needs a word and it is just some words so that I can test and see how well a program can count words. That should do it, likely, probably, most certainly, but not definitely. 
-
-this—is
-this—is—a—dash
-this—word—has—dashes

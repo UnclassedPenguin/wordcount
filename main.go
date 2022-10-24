@@ -113,11 +113,11 @@ func main() {
   var sortByWord bool
 
 
-  flag.StringVar(&file, "f", "", "The file to count words from.")
-  flag.BoolVar(&reversed, "r", false, "Wether or not to reverse the order.")
-  flag.BoolVar(&lowercase, "l", false, "Wether or not to lowercase all words.")
+  flag.StringVar(&file,       "f",    "", "The file to count words from.")
+  flag.BoolVar(&reversed,     "r", false, "Wether or not to reverse the order.")
+  flag.BoolVar(&lowercase,    "l", false, "Wether or not to lowercase all words.")
   flag.BoolVar(&sortByNumber, "n", false, "Sort by number.")
-  flag.BoolVar(&sortByWord, "w", false, "Sort by words.")
+  flag.BoolVar(&sortByWord,   "w", false, "Sort by words.")
 
   flag.Parse()
 

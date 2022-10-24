@@ -64,12 +64,18 @@ func clearString(str string) string {
   return nonAlphaRegex.ReplaceAllString(str, "")
 }
 
-func sortWords(m map[string]int) {
+func sortWords(m map[string]int, reversed bool) {
   keys := make([]string, 0, len(m))
   for k := range m {
     keys = append(keys, k)
   }
   sort.Strings(keys)
+
+  if reversed {
+    for i, j := 0, len(keys)-1; i < j; i, j = i+1, j-1 {
+      keys[i], keys[j] = keys[j], keys[i]
+    }
+  }
 
   for _, k := range keys {
     fmt.Println(k, m[k])
@@ -126,7 +132,7 @@ func main() {
   if sortByWord && sortByNumber {
     fmt.Println("You can only use one of -n or -w.")
   } else if sortByWord {
-    sortWords(wordList)
+    sortWords(wordList, reversed)
   } else if sortByNumber {
     sortNumber(wordList, reversed)
   } else {

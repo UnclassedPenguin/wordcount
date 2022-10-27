@@ -150,10 +150,18 @@ func main() {
 
   flag.Parse()
 
-  // Read the file
-  str, err := ioutil.ReadFile(file)
-  if err != nil {
-    fmt.Println("Error reading file:\n", err)
+  var str []byte
+  var err error
+
+  if file != "" {
+    // Read the file
+    str, err = ioutil.ReadFile(file)
+    if err != nil {
+      fmt.Println("Error reading file:\n", err)
+      os.Exit(1)
+    }
+  } else {
+    fmt.Println("You didn't specify a file. Please use -f with a file to read from. Or -h for usage.")
     os.Exit(1)
   }
 

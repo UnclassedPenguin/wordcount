@@ -61,6 +61,7 @@ func WordCount(s string, lowercase bool) map[string]int {
 }
 
 func clearString(str string) string {
+  var nonAlphaRegex = regexp.MustCompile(`[^a-zA-Z ]+`)
   return nonAlphaRegex.ReplaceAllString(str, "")
 }
 
@@ -103,7 +104,6 @@ func sortNumber (m map[string]int, reversed bool) {
   }
 }
 
-var nonAlphaRegex = regexp.MustCompile(`[^a-zA-Z ]+`)
 
 func main() {
   var file string
@@ -124,7 +124,7 @@ func main() {
   // Read the file
   str, err := ioutil.ReadFile(file)
   if err != nil {
-    fmt.Println("Error reading file:", err)
+    fmt.Println("Error reading file:\n", err)
   }
 
   wordList := WordCount(string(str), lowercase)

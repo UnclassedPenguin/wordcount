@@ -33,6 +33,7 @@ import (
   "io/ioutil"
   "regexp"
   "flag"
+  "os"
 )
 
 // This function actually counts the words. Creates a map,
@@ -128,7 +129,7 @@ func sortNumber (m map[string]int, reversed bool) {
 
 func main() {
 
-  // Flags for cmd line options
+  // Flags for command line options
   var file string
   var reversed bool
   var lowercase bool
@@ -141,12 +142,19 @@ func main() {
   flag.BoolVar(&sortByNumber, "n", false, "Sort by number.")
   flag.BoolVar(&sortByWord,   "w", false, "Sort by words.")
 
+  flag.Usage = func() {
+    w := flag.CommandLine.Output()
+    fmt.Fprintf(w, "Description of %s:\n\nThis is a way overcomplicated way to count the occurences of words in a text file.\nInspired by one of the excercises on the Tour of Go on go.dev\n\nUsage:\n\nwordcount -f file  -w | -n [-r] [-l]\n\n", os.Args[0])
+    flag.PrintDefaults()
+  }
+
   flag.Parse()
 
   // Read the file
   str, err := ioutil.ReadFile(file)
   if err != nil {
     fmt.Println("Error reading file:\n", err)
+    os.Exit(1)
   }
 
   wordList := WordCount(string(str), lowercase)

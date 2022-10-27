@@ -1,12 +1,28 @@
-// Wordcount. Usage:
-// wordcount -f file -r -l
+//-------------------------------------------------------------------------------
+//-------------------------------------------------------------------------------
+//
+// Tyler(UnclassedPenguin) WordCount 2022
+//
+// Author: Tyler(UnclassedPenguin)
+//    URL: https://unclassed.ca
+// GitHub: https://github.com/UnclassedPenguin/wordcount.git
+// Description: This is a wordcount program inspired by the Tour Of Go on go.dev
+//              It is complete overkill, but was just messing around and
+//              practicing with the language. Fun regardless.
+//
+//-------------------------------------------------------------------------------
+//-------------------------------------------------------------------------------
+
+// WordCount.
+// Usage:
+// wordcount -f file  -w | -n [-r] [-l]
 // or:
-// go run main.go -f file -r -l
+// go run main.go -f file -w | -n [-r] [-l]
 // -f is the file you'd like to cound the words in.
+// -w sorts by (w)ords alphabetically
+// -n sorts by (n)umber of times a word is found
 // -r is reversed order. So high to low or low to high.
 // -l is lowercase. It converts all words to lowercase before counting
-// -w sorts by words alphabetically
-// -n sorts by number of times a word is found
 
 package main
 
@@ -19,14 +35,15 @@ import (
   "flag"
 )
 
+// This function actually counts the words. Creates a map,
+// checks if the word is there. If it isn't, it adds it.
+// If it is, it increments the value it has been seen.
 func WordCount(s string, lowercase bool) map[string]int {
   str := strings.Fields(s)
-  //fmt.Println(str)
+
   words := make(map[string]int)
 
   for _, v := range str {
-    //fmt.Println("i = ", i)
-    //fmt.Println("v = ", v)
     if lowercase {
       v = strings.ToLower(v)
     }
@@ -56,15 +73,17 @@ func WordCount(s string, lowercase bool) map[string]int {
       }
     }
   }
-
   return words
 }
 
+// This function uses regex to clear non alphabetic characters
 func clearString(str string) string {
   var nonAlphaRegex = regexp.MustCompile(`[^a-zA-Z ]+`)
   return nonAlphaRegex.ReplaceAllString(str, "")
 }
 
+// This creates a slice and sorts it, and then prints out the slice
+// in order, and uses that to get the value to print alongside it.
 func sortWords(m map[string]int, reversed bool) {
   keys := make([]string, 0, len(m))
   for k := range m {
@@ -83,6 +102,8 @@ func sortWords(m map[string]int, reversed bool) {
   }
 }
 
+// This creates a slice and sorts by number of times
+// the word has been seen.
 func sortNumber (m map[string]int, reversed bool) {
   keys := make([]string, 0, len(m))
   for k := range m {
@@ -106,12 +127,13 @@ func sortNumber (m map[string]int, reversed bool) {
 
 
 func main() {
+
+  // Flags for cmd line options
   var file string
   var reversed bool
   var lowercase bool
   var sortByNumber bool
   var sortByWord bool
-
 
   flag.StringVar(&file,       "f",    "", "The file to count words from.")
   flag.BoolVar(&reversed,     "r", false, "Wether or not to reverse the order.")

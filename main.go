@@ -144,7 +144,7 @@ func main() {
 
   flag.Usage = func() {
     w := flag.CommandLine.Output()
-    fmt.Fprintf(w, "Description of %s:\n\nThis is a way overcomplicated way to count the occurences of words in a text file.\nInspired by one of the excercises on the Tour of Go on go.dev\n\nUsage:\n\nwordcount -f file  -w | -n [-r] [-l]\n\n", os.Args[0])
+    fmt.Fprintf(w, "%s:\n\nThis is a way overcomplicated way to count the occurences of words in a text file.\nInspired by one of the excercises on the Tour of Go on go.dev\n\nUsage:\n\nwordcount -f file  -w | -n [-r] [-l]\n\n", os.Args[0])
     flag.PrintDefaults()
   }
 
